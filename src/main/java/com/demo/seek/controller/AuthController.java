@@ -24,7 +24,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
+import io.swagger.v3.oas.annotations.tags.Tag;
 import javax.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -33,7 +33,13 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
+@Tag(name = "Autenticacion", description = "Operaciones relacionadas con la autenticación y autorización")
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin
@@ -59,6 +65,16 @@ public class AuthController extends BaseController {
     @Autowired
     JwtProvider jwtProvider;
 
+    @Operation(
+        summary = "Obtener token",
+        description = "Autentica al usuario y devuelve un token JWT válido"
+    )
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Token generado correctamente",
+            content = @Content(schema = @Schema(implementation = ResultadoDto.class))),
+        @ApiResponse(responseCode = "500", description = "Error interno del servidor",
+            content = @Content)
+    })
     @PostMapping("/login")
     public ResultadoDto<JwtDto> login(@Valid @RequestBody LoginUsuario loginUsuario) {
 

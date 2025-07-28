@@ -6,6 +6,9 @@ import com.demo.seek.dto.ResultadoDto;
 import com.demo.seek.entity.Cliente;
 import com.demo.seek.service.ClienteService;
 import com.demo.seek.util.Constantes;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "Clientes", description = "Operaciones relacionadas con los clientes")
 @RestController
 @RequestMapping("/clientes")
 @CrossOrigin
@@ -24,6 +28,7 @@ public class ClienteController extends BaseController  {
     @Autowired
     private ClienteService clienteService;
 
+    @Operation(summary = "Obtener todos los clientes", description = "Retorna una lista de todos los clientes registrados")
     @GetMapping("/listar")
     public ResultadoDto<Page<Cliente>> listarClientes(
             @RequestParam(defaultValue = "0") int page,
@@ -51,6 +56,7 @@ public class ClienteController extends BaseController  {
         return resultadoDto;
     }
 
+    @Operation(summary = "Guardar cliente", description = "Registra los datos de un nuevo cliente")
     @PostMapping("/guardar")
     public ResultadoDto<Cliente> guardarCliente(@RequestBody Cliente cliente) {
         ResultadoDto<Cliente> resultadoDto = new ResultadoDto<Cliente>();
@@ -66,6 +72,8 @@ public class ClienteController extends BaseController  {
         return resultadoDto;
     }
 
+
+    @Operation(summary = "Obtener Promedio de edad", description = "Obtiene el promedio de edad de los clientes registrados")
     @GetMapping("/obtenerPromedioEdad")
     public ResultadoDto<Double> obtenerPromedioClientes() {
         ResultadoDto<Double> resultadoDto = new ResultadoDto<Double>();
@@ -81,6 +89,8 @@ public class ClienteController extends BaseController  {
         return resultadoDto;
     }
 
+
+    @Operation(summary = "Obtener desviacion de edad", description = "Obtiene la desviacion de los clientes registrados")
     @GetMapping("/obtenerDesviacionEdad")
     public ResultadoDto<Double> obtenerVariancionDtoEdad() {
         ResultadoDto<Double> resultadoDto = new ResultadoDto<Double>();

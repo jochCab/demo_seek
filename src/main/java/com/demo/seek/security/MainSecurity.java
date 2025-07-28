@@ -59,6 +59,9 @@ public class MainSecurity {
                     "/email-password/**",
                     "/v2/api-docs/**",
                     "/swagger-ui/**",
+                    "/v3/api-docs/**",
+                    "/swagger-ui.html",
+                    "/swagger-ui/**",
                     "/swagger-resources/**",
                     "/configuration/**"
                 ).permitAll()

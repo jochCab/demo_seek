@@ -13,7 +13,7 @@ public class LoginUsuario {
     @NotNull
     private String password;
 
-    private Integer codigoVerificacion;
+
 
     public String getEmail() {
         return email;
@@ -31,11 +31,4 @@ public class LoginUsuario {
         this.password = password;
     }
 
-    public Integer getCodigoVerificacion() {
-        return codigoVerificacion;
-    }
-
-    public void setCodigoVerificacion(Integer codigoVerificacion) {
-        this.codigoVerificacion = codigoVerificacion;
-    }
 }

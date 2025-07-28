@@ -16,6 +16,8 @@ WORKDIR /app
 
 # Copiar el .jar desde la imagen anterior
 COPY --from=build /app/target/*.jar app.jar
+#COPY --from=build /app/target/seek-0.0.1-SNAPSHOT.jar app.jar
+
 
 # Puerto que expone la app
 EXPOSE 8080

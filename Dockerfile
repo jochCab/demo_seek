@@ -1,0 +1,24 @@
+# Imagen base con Java 17 y Maven incluidos
+FROM maven:3.8.8-eclipse-temurin-17 AS build
+
+WORKDIR /app
+
+# Copiar el código fuente al contenedor
+COPY . .
+
+# Compilar el proyecto y crear el JAR (sin correr tests)
+RUN mvn clean package -DskipTests
+
+# Segunda etapa: imagen liviana solo para correr la app
+FROM eclipse-temurin:17
+
+WORKDIR /app
+
+# Copiar el .jar desde la imagen anterior
+COPY --from=build /app/target/*.jar app.jar
+
+# Puerto que expone la app
+EXPOSE 8080
+
+# Comando para ejecutar
+ENTRYPOINT ["java", "-jar", "app.jar"]
